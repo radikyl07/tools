@@ -1,2 +1,2 @@
 # tools
-General programming / scripting tools across a variety of technologies
+General programming / scripting code snippets across a variety of technology domains.
