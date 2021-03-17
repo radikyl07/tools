@@ -3,16 +3,15 @@ import json
 import pprint
 from decouple import config
 
-# import common code snippets / helpers from another folder
-#   - or copy the ref 'from' files in this folder and from-import it directly 
-#   - without the 'import sys,os' and 'sys.path..' lines.
-import sys, os
-sys.path.insert(1,os.path.join('..','..','common'))
+# Import common code snippets, helpers from 'tools/common' parent folder
+#   - Add 'tools/common/' to PYTHONPATH (shell: export, vscode: in .env file in workspace root)
+#   - OR
+#   - Copy the below ref 'from' modules directly in this folder
 from get_yaml_from_excel import get_yaml_from_excel
 
 
 
-#### Process AMP group creation responce
+#### Process AMP group creation responce 
 def amp_group_create_res(
     k,          # index
     v           # contents

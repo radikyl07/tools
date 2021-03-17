@@ -2,7 +2,7 @@ import openpyxl, yaml
 from openpyxl.utils.cell import get_column_letter 
 
 
-#### Read ';' separated yaml data in cells from a designated column in a specified sheet from an 
+#### Read ';;' separated yaml data in cells from a designated column in a specified sheet from an 
 #       Excel workbook, and return python list (JSON) data with each Excel cell as a list item.
 def get_yaml_from_excel(
     wbn,                 # workbook name
@@ -29,8 +29,8 @@ def get_yaml_from_excel(
     col_yaml = get_column_letter(ws_header.index(col_yaml_name) + 1)
     col_yaml_data = [cell.value for i,cell in enumerate(ws[col_yaml]) if i>0]
     
-    # replace placeholder newline delimeter ';' with actual newline '\n'
-    yaml_data_str = "".join(list(map(lambda x: x.replace(";", "\n"), col_yaml_data)))
+    # replace placeholder newline delimeter ';;' with actual newline '\n'
+    yaml_data_str = "".join(list(map(lambda x: x.replace(";;", "\n"), col_yaml_data)))
     
     # convert yaml string to python list / json object
     yaml_data_list = yaml.load(yaml_data_str, Loader=yaml.FullLoader)
