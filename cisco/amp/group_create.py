@@ -7,7 +7,7 @@ from decouple import config
 #   - or copy the ref 'from' files in this folder and from-import it directly 
 #   - without the 'import sys,os' and 'sys.path..' lines.
 import sys, os
-sys.path.insert(1,os.path.join('..','..','lib'))
+sys.path.insert(1,os.path.join('..','..','common'))
 from get_yaml_from_excel import get_yaml_from_excel
 
 

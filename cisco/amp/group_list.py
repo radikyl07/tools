@@ -1,26 +1,23 @@
 import requests
 from decouple import config
 
-#### Initialize
-
-AMP_BASE_URL = 'https://api.apjc.amp.cisco.com/v1/'
-AMP_CLIENT_ID = config('AMP_CLIENT_ID')
-AMP_API_KEY = config('AMP_API_KEY')
-
-
 
 #### Get groups
 #TODO: Limit and Pagination considerations
 
+api_base_url = 'https://api.apjc.amp.cisco.com/v1/'
+api_client_id = config('AMP_CLIENT_ID')
+api_api_key = config('AMP_API_KEY')
+api_path = "groups"
 headers={
     "content-type": "application/json",
     "accept": "application/json",
 }
 
 resp = requests.get(
-    url=AMP_BASE_URL+"groups",
+    url=api_base_url+api_path,
     headers=headers,
-    auth=(AMP_CLIENT_ID, AMP_API_KEY),
+    auth=(api_client_id, api_api_key),
 )
 
 data = resp.json()
