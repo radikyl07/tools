@@ -7,7 +7,7 @@ from decouple import config
 #   - Add 'tools/common/' to PYTHONPATH (shell: export, vscode: in .env file in workspace root)
 #   - OR
 #   - Copy the below ref 'from' modules directly in this folder
-from get_yaml_from_excel import get_yaml_from_excel
+from yaml_from_excel_as_json import yaml_from_excel_as_json
 
 
 
@@ -34,7 +34,7 @@ def amp_group_create_res(
 
 
 #### Read YAML data from Excel worksheet
-input_data = get_yaml_from_excel(
+input_data = yaml_from_excel_as_json(
     wbn="group_create.xlsx",
     wsn="groups",
     col_yaml_name="_yaml",
