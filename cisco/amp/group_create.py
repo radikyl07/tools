@@ -27,15 +27,16 @@ def amp_group_create_res(
         print(f"OK - {v['name']} created. GUID = {resp.json()['data']['guid']}")
     else:
         e = resp.json()["errors"][0]
-        print(f"FAIL - {v['name']} failed to create."+
-              f" API Result = {resp.status_code} {resp.reason}."+
-              f" ERROR = {e['error_code']} - {e['description']} - {e['details'][0]}",
-              )
+        print(
+            f"FAIL - {v['name']} failed to create."+
+            f" API Result = {resp.status_code} {resp.reason}."+
+            f" ERROR = {e['error_code']} - {e['description']} - {e['details'][0]}",
+        )
 
 
 #### Read YAML data from Excel worksheet
 input_data = yaml_from_excel_as_json(
-    wbn="group_create.xlsx",
+    wbn="cisco_amp.xlsx",
     wsn="groups",
     col_yaml_name="_yaml",
     )
