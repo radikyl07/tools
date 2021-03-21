@@ -80,3 +80,4 @@ if __name__ == "__main__":
         )
     
     pprint.pprint(input_data, indent=4)
+    print(input_data)

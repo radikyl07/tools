@@ -36,8 +36,8 @@ resp = requests.post(
 
 if resp.status_code != 204:
     print(
-        f"ERROR: {resp.status_code} - {resp.reason}. "+
-        f"Failed to obtain firepower token.",
+        f"ERROR: {resp.status_code} - {resp.reason}. "
+        + f"Failed to obtain firepower token.",
     )
     exit()
 
@@ -55,7 +55,7 @@ fp_api_header={
 # Read YAML data from Excel worksheet
 input_data = yaml_from_excel_as_json(
     wbn="cisco_firepower.xlsx",
-    wsn="obj_network_url",
+    wsn="network_url_obj",
     col_yaml_name="_yaml",
     )
 
@@ -96,11 +96,11 @@ for k,v in enumerate(input_data):
         )
 
 
-#### Firepower - create new network/host/fqdn/range/url objects GROUPS
+#### Firepower - create new network/host/url objects GROUPS
 # Read YAML data from Excel worksheet
 input_data = yaml_from_excel_as_json(
     wbn="cisco_firepower.xlsx",
-    wsn="obj_group_network_url",
+    wsn="group_network_url_obj",
     col_yaml_name="_yaml",
     )
 
@@ -116,12 +116,14 @@ for k,v in enumerate(input_data):
         print(f"Skipped: {v['name']} due to invalid type {v['type']}")
         continue
     
-    # Remove partial / blank list items, where dict is incomplete or value is None
+    # if value/url key is missing in dict, set the list item to None
     v["literals"] = list(map(lambda x: x if "value" in x or "url" in x else None, v["literals"]))
+    # clean all None list items
     v["literals"] = list(filter(lambda x: True if x is not None else False, v["literals"]))
+    # sort the list by 'type' key in the dict
+    v["literals"] = list(sorted(v["literals"], key = lambda x: x["type"]))
     
     data = json.dumps(v)
-    # print(v) & exit()
     resp = requests.post(
         url=url, 
         headers=headers, 

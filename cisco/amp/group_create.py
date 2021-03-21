@@ -17,10 +17,10 @@ def amp_group_create_res(
     v           # contents
     ):
     if k==0:
-        print(f"API Rate Limit Remaining/Total/Seconds-to-reset: "+
-              f"{resp.headers['X-RateLimit-Remaining']}/"+
-              f"{resp.headers['X-RateLimit-Limit']}/"+
-              f"{resp.headers['X-RateLimit-Reset']}",
+        print(f"API Rate Limit Remaining/Total/Seconds-to-reset: "
+              + f"{resp.headers['X-RateLimit-Remaining']}/"
+              + f"{resp.headers['X-RateLimit-Limit']}/"
+              + f"{resp.headers['X-RateLimit-Reset']}",
               )
     
     if resp.status_code == 201:
@@ -28,9 +28,9 @@ def amp_group_create_res(
     else:
         e = resp.json()["errors"][0]
         print(
-            f"FAIL - {v['name']} failed to create."+
-            f" API Result = {resp.status_code} {resp.reason}."+
-            f" ERROR = {e['error_code']} - {e['description']} - {e['details'][0]}",
+            f"FAIL - {v['name']} failed to create."
+            + f" API Result = {resp.status_code} {resp.reason}."
+            + f" ERROR = {e['error_code']} - {e['description']} - {e['details'][0]}",
         )
 
 
