@@ -1,0 +1,11 @@
+
+{
+    "hostname": "{{hostname}}",
+    "vlans": [
+        {
+            "vlan": 10,
+            "ip": "{{vlan10_ip}}",
+            "mask": "{{vlan10_mask}}"
+        }
+    ]
+}
