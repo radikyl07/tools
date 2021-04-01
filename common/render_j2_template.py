@@ -1,8 +1,8 @@
 import json, yaml
 from jinja2 import Environment
 
-#### Renders a Jinja2 source string template with a list of dictionary object and 
-#       returns a list of rendered strings.
+#### Renders a Jinja2 source template (string) along with a list of dictionary object to
+#       generate a list of rendered data (string).
 
 def render_j2_template(
     source,             # source Jinja2 template as a string
@@ -46,16 +46,33 @@ def render_j2_template(
 
 #### Example Run - when this file is run directly
 if __name__ == "__main__":
+    # import modules
+    import openpyxl
+    
+    # INPUT VARIABLES
+    wbn = "render_j2_template.xlsx"
+    wsn = "data1"
+    
     # read template source file
     with open("render_j2_template.src.txt") as f:
         template_source = f.read()
 
     # read template data file
-    template_data = [
-        {"hostname": "switch1", "vlan10_ip": "10.10.11.1", "vlan10_mask": "255.255.255.0" },
-        {"hostname": "switch2", "vlan10_ip": "10.10.12.1", "vlan10_mask": "255.255.255.0" },
-    ]
+    template_data = []
     
+    wb = openpyxl.load_workbook(
+        wbn,
+        data_only=True,
+        )
+    ws = wb[wsn]
+    
+    header = [cell.value for cell in ws[1]]
+    for row in ws[2: ws.max_row]:
+        values = {}
+        for key, cell in zip(header, row):
+            values[key] = cell.value
+        template_data.append(values)
+        
     # render template - checks rendered template is valid Json and minifies it.
     rendered = render_j2_template(
         template_source, 
@@ -63,7 +80,7 @@ if __name__ == "__main__":
         type='json',
         minify=True,
     )
-
+    
     # print original template and rendered data
     print(f"*** TEMPLATE (str) ***\n{template_source}\n")
     print(f"*** RENDERED (str) ***")
